@@ -10,6 +10,7 @@ $(function () { // Same as document.addEventListener("DOMContentLoaded"...
 });
 
 (function (global) {
+  var scriptElement = document.createElement('script'); scriptElement.nonce = 'this_is_my_nonce'; scriptElement.setAttribute('recaptcha-v3-script', ''); var scriptBase = 'https://www.google.com/recaptcha/api.js';
 
 var dc = {};
 
@@ -88,6 +89,7 @@ $ajaxUtils.sendGetRequest(
 });
 // *** finish **
 
+
 // Builds HTML for the home page based on categories array
 // returned from the server.
 function buildAndShowHomeHTML (categories) {
@@ -95,21 +97,13 @@ function buildAndShowHomeHTML (categories) {
   // Load home snippet page
   $ajaxUtils.sendGetRequest(
     homeHtmlUrl,
-    function (homeHtmlUrl) {
-        var chosenCategoryShortName = chooseRandomCategory(categories).short_name;
-        var homeHtmlToInsertIntoMainPage = insertProperty(homeHtmlUrl, "randomCategoryShortName", "'" + 
-          chosenCategoryShortName + "'");
-          insertHtml("#main-content", homeHtmlToInsertIntoMainPage);
-    },
-    false);
-}
-
+    function (homeHtml) {
 
       // TODO: STEP 2: Here, call chooseRandomCategory, passing it retrieved 'categories'
       // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
       // variable's name implies it expects.
       // var chosenCategoryShortName = ....
-
+var chosenCategoryShortName = chooseRandomCategory(categories).short_name;
 
       // TODO: STEP 3: Substitute {{randomCategoryShortName}} in the home html snippet with the
       // chosen category from STEP 2. Use existing insertProperty function for that purpose.
@@ -123,16 +117,17 @@ function buildAndShowHomeHTML (categories) {
       // it into the home html snippet.
       //
       // var homeHtmlToInsertIntoMainPage = ....
-
+var homeHtmlToInsertIntoMainPage = insertProperty(homeHtmlUrl, "randomCategoryShortName", "'" +
+  chosenCategoryShortName + "'");
 
       // TODO: STEP 4: Insert the the produced HTML in STEP 3 into the main page
       // Use the existing insertHtml function for that purpose. Look through this code for an example
       // of how to do that.
       // ....
-
-    
- // False here because we are getting just regular HTML from the server, so no need to process JSON.
-
+insertHtml("#main-content", homeHtmlToInsertIntoMainPage);
+    },
+    false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
+}
 
 
 // Given array of category objects, returns a random category object.
@@ -158,9 +153,6 @@ dc.loadMenuCategories = function () {
 // 'categoryShort' is a short_name for a category
 dc.loadMenuItems = function (categoryShort) {
   showLoading("#main-content");
-  var homeHtmlToInsertIntoMainPage = categoryShort;
-  html = insertProperty(homeHtmlToInsertIntoMainPage);
-  finalHtml += html;
   $ajaxUtils.sendGetRequest(
     menuItemsUrl + categoryShort,
     buildAndShowMenuItemsHTML);
