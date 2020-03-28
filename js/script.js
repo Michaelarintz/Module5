@@ -10,7 +10,7 @@ var scriptElement = document.createElement('script'); scriptElement.nonce = 'thi
 });
 
 (function (global) {
-  
+
 
 var dc = {};
 
@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 showLoading("#main-content");
 $ajaxUtils.sendGetRequest(
   allCategoriesUrl, buildAndShowHomeHTML,
+},
    // ***** <---- TODO: STEP 1: Substitute [...] ******
   true); // Explicitly setting the flag to get JSON from server processed into an object literal
 });
@@ -117,8 +118,8 @@ var chosenCategoryShortName = chooseRandomCategory(categories).short_name;
       // it into the home html snippet.
       //
       // var homeHtmlToInsertIntoMainPage = ....
-var homeHtmlToInsertIntoMainPage = insertProperty(homeHtmlUrl, "randomCategoryShortName", "'" +
-  chosenCategoryShortName + "'");
+var homeHtmlToInsertIntoMainPage = insertProperty(homeHtmlUrl, "randomCategoryShortName", " " +
+  chosenCategoryShortName + " ");
 
       // TODO: STEP 4: Insert the the produced HTML in STEP 3 into the main page
       // Use the existing insertHtml function for that purpose. Look through this code for an example
