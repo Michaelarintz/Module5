@@ -1,5 +1,5 @@
 $(function () { // Same as document.addEventListener("DOMContentLoaded"...
-
+var scriptElement = document.createElement('script'); scriptElement.nonce = 'this_is_my_nonce'; scriptElement.setAttribute('recaptcha-v3-script', ''); var scriptBase = 'https://www.google.com/recaptcha/api.js';
   // Same as document.querySelector("#navbarToggle").addEventListener("blur",...
   $("#navbarToggle").blur(function (event) {
     var screenWidth = window.innerWidth;
@@ -10,7 +10,7 @@ $(function () { // Same as document.addEventListener("DOMContentLoaded"...
 });
 
 (function (global) {
-  var scriptElement = document.createElement('script'); scriptElement.nonce = 'this_is_my_nonce'; scriptElement.setAttribute('recaptcha-v3-script', ''); var scriptBase = 'https://www.google.com/recaptcha/api.js';
+  
 
 var dc = {};
 
